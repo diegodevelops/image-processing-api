@@ -4,7 +4,12 @@
   "description": "First project for Udacity's Fullstack JS course",
   "main": "index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint 'index.js'",
+    "prettier": "prettier --config .prettierrc '*.js' --write",
+    "build": "npx tsc",
+    "start": "nodemon src/index.ts",
+    "jasmine": "jasmine",
+    "test": "npm run build && npm run jasmine"
   },
   "repository": {
     "type": "git",
