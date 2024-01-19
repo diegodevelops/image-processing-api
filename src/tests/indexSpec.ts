@@ -18,16 +18,14 @@ describe('tests for images enpoint', () => {
 
     describe('testing for small sizes', () => {
 
-        it('resize to 20px x 20px', async (done) => {
+        it('resize to 20px x 20px', async () => {
             const reponse = await request.get(`${imagesPath}${query(fileName, 20, 20)}`)
             expect((reponse).status).toBe(200);
-            done();
         })
 
-        it('resize to 300px x 300px', async (done) => {
+        it('resize to 300px x 300px', async () => {
             const reponse = await request.get(`${imagesPath}${query(fileName, 300, 300)}`)
             expect((reponse).status).toBe(200);
-            done();
         })
     })
 })

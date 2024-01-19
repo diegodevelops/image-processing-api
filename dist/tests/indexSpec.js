@@ -49,7 +49,7 @@ describe('tests for images enpoint', function () {
         return "?file_name=".concat(fileName, "&width=").concat(width, "&height=").concat(height);
     };
     describe('testing for small sizes', function () {
-        it('resize to 20px x 20px', function (done) { return __awaiter(void 0, void 0, void 0, function () {
+        it('resize to 20px x 20px', function () { return __awaiter(void 0, void 0, void 0, function () {
             var reponse;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -57,12 +57,11 @@ describe('tests for images enpoint', function () {
                     case 1:
                         reponse = _a.sent();
                         expect((reponse).status).toBe(200);
-                        done();
                         return [2 /*return*/];
                 }
             });
         }); });
-        it('resize to 300px x 300px', function (done) { return __awaiter(void 0, void 0, void 0, function () {
+        it('resize to 300px x 300px', function () { return __awaiter(void 0, void 0, void 0, function () {
             var reponse;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -70,7 +69,6 @@ describe('tests for images enpoint', function () {
                     case 1:
                         reponse = _a.sent();
                         expect((reponse).status).toBe(200);
-                        done();
                         return [2 /*return*/];
                 }
             });
