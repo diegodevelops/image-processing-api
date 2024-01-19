@@ -39,41 +39,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var supertest_1 = __importDefault(require("supertest"));
-var index_1 = __importDefault(require("../index"));
-var request = (0, supertest_1.default)(index_1.default);
-describe('tests for images enpoint', function () {
-    var imagesPath = '/images';
-    var fileName = 'puertorico';
-    var query = function (fileName, width, height) {
-        return "?file_name=".concat(fileName, "&width=").concat(width, "&height=").concat(height);
-    };
-    describe('testing for small sizes', function () {
-        it('resize to 20px x 20px', function () { return __awaiter(void 0, void 0, void 0, function () {
-            var reponse;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, request.get("".concat(imagesPath).concat(query(fileName, 20, 20)))];
-                    case 1:
-                        reponse = _a.sent();
-                        expect((reponse).status).toBe(200);
-                        expect(reponse.files).toBeTruthy();
-                        return [2 /*return*/];
-                }
-            });
-        }); });
-        it('resize to 300px x 300px', function () { return __awaiter(void 0, void 0, void 0, function () {
-            var reponse;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, request.get("".concat(imagesPath).concat(query(fileName, 300, 300)))];
-                    case 1:
-                        reponse = _a.sent();
-                        expect((reponse).status).toBe(200);
-                        expect(reponse.files).toBeTruthy();
-                        return [2 /*return*/];
-                }
-            });
-        }); });
-    });
+var does_file_exist_1 = __importDefault(require("../../lib/does-file-exist"));
+describe('tests for .doesFileExist func', function () {
+    it('should return true', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var fileName, filePath, answer;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    fileName = 'japan.jpg';
+                    filePath = "assets/full/".concat(fileName);
+                    return [4 /*yield*/, (0, does_file_exist_1.default)(filePath)];
+                case 1:
+                    answer = _a.sent();
+                    expect(answer).toBeTrue();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
 });

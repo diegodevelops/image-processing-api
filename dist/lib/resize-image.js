@@ -35,45 +35,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var supertest_1 = __importDefault(require("supertest"));
-var index_1 = __importDefault(require("../index"));
-var request = (0, supertest_1.default)(index_1.default);
-describe('tests for images enpoint', function () {
-    var imagesPath = '/images';
-    var fileName = 'puertorico';
-    var query = function (fileName, width, height) {
-        return "?file_name=".concat(fileName, "&width=").concat(width, "&height=").concat(height);
-    };
-    describe('testing for small sizes', function () {
-        it('resize to 20px x 20px', function () { return __awaiter(void 0, void 0, void 0, function () {
-            var reponse;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, request.get("".concat(imagesPath).concat(query(fileName, 20, 20)))];
-                    case 1:
-                        reponse = _a.sent();
-                        expect((reponse).status).toBe(200);
-                        expect(reponse.files).toBeTruthy();
-                        return [2 /*return*/];
-                }
-            });
-        }); });
-        it('resize to 300px x 300px', function () { return __awaiter(void 0, void 0, void 0, function () {
-            var reponse;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, request.get("".concat(imagesPath).concat(query(fileName, 300, 300)))];
-                    case 1:
-                        reponse = _a.sent();
-                        expect((reponse).status).toBe(200);
-                        expect(reponse.files).toBeTruthy();
-                        return [2 /*return*/];
-                }
-            });
-        }); });
+var resizeImage = function (fileName, width, height) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        return [2 /*return*/];
     });
-});
+}); };
