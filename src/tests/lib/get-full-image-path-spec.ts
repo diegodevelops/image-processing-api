@@ -1,4 +1,4 @@
-import getFullImagePath from "./get-full-image-path";
+import getFullImagePath from "../../lib/get-full-image-path";
 
 describe('tests for .getFullImagePath func', () => {
     

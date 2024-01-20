@@ -1,4 +1,4 @@
-import removeFileExtension from "../../lib/remove-file-extension";
+import removeFileExtension from "./remove-file-extension";
 
 /**
  * Has knowledge of the image file structure
