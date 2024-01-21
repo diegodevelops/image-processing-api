@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var remove_file_extension_1 = __importDefault(require("../../lib/remove-file-extension"));
-describe('tests for .removeFileExtension func', function () {
+describe('tests for .removeFileExtension', function () {
     var string = 'puertorico.png';
     var correctString = 'puertorico';
     it("should convert ".concat(string, " to ").concat(correctString), function () {

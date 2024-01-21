@@ -1,6 +1,6 @@
 import getImagePath from "../../lib/get-image-path";
 
-describe('tests for .getFullImagePath func', () => {
+describe('tests for .getFullImagePath', () => {
     
     const fileName = 'japan.png';
     const correctFilePath = 'assets/full/japan.jpg'
