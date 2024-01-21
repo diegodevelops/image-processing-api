@@ -39,7 +39,6 @@ images.use('/', (req, res) => {
 
     // serve full sized image if width and height params weren't provided
 
-
     // check if exist
 
     // get image file if exist or created otherwise
