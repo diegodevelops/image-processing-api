@@ -1,11 +1,11 @@
 import express from 'express';
 import images from './images';
 
-const routes = express.Router()
+const routes = express.Router();
 
 routes.get('/', (req, res, next) => {
-    res.send('main api route');
-})
+  res.send('main api route');
+});
 
 routes.use('/images', images);
 
