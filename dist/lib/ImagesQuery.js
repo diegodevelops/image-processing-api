@@ -14,14 +14,13 @@ var ImagesQuery = /** @class */ (function () {
     }
     ImagesQuery.prototype._getValidNumberIfAny = function (value) {
         var possibleNumber = parseInt(value !== null && value !== void 0 ? value : '');
-        return (isNaN(possibleNumber)) ? undefined : possibleNumber;
+        return isNaN(possibleNumber) ? undefined : possibleNumber;
     };
     ImagesQuery.prototype.hasFileName = function () {
         return (this.fileName || '').trim() != '';
     };
     ImagesQuery.prototype.hasWidthAndHeight = function () {
-        return this.width != undefined
-            && this.height != undefined;
+        return this.width != undefined && this.height != undefined;
     };
     return ImagesQuery;
 }());

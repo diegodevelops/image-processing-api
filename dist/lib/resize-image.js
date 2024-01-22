@@ -50,9 +50,7 @@ function resizeImage(filePath, newFilePath, width, height) {
                     return [4 /*yield*/, jimp_1.default.read(filePath)];
                 case 1:
                     image = _a.sent();
-                    return [4 /*yield*/, image
-                            .resize(width, height)
-                            .writeAsync(newFilePath)];
+                    return [4 /*yield*/, image.resize(width, height).writeAsync(newFilePath)];
                 case 2:
                     _a.sent();
                     return [2 /*return*/, true];

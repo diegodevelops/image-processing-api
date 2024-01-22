@@ -71,7 +71,9 @@ images.use('/', function (req, res) { return __awaiter(void 0, void 0, void 0, f
                 originalImageExists = _a.sent();
                 // send 404 and message if image does not exist
                 if (!originalImageExists) {
-                    res.status(404).send("404: Oops! Image file with name \"".concat(fileName, "\" does not exist yet."));
+                    res
+                        .status(404)
+                        .send("404: Oops! Image file with name \"".concat(fileName, "\" does not exist yet."));
                     return [2 /*return*/];
                 }
                 // serve full sized image if width and height params weren't provided
@@ -84,7 +86,7 @@ images.use('/', function (req, res) { return __awaiter(void 0, void 0, void 0, f
                 height = imagesQuery.height;
                 newFilePath = (0, get_image_path_1.default)(fileName, {
                     width: width,
-                    height: height
+                    height: height,
                 });
                 return [4 /*yield*/, (0, does_file_exist_1.default)(newFilePath)];
             case 3:
@@ -99,7 +101,7 @@ images.use('/', function (req, res) { return __awaiter(void 0, void 0, void 0, f
             case 4:
                 success = _a.sent();
                 if (!success) {
-                    throw (Error());
+                    throw Error();
                 }
                 res.status(200).sendFile(newFileAbsolutePath);
                 return [3 /*break*/, 6];
