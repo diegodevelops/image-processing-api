@@ -7,6 +7,7 @@ describe('tests for images enpoint', () => {
 
     const imagesPath = '/images'
     const fileName = 'japan'
+    const nonExistingFilename = 'canada'
 
     let query = (
         fileName: string,
@@ -41,7 +42,7 @@ describe('tests for images enpoint', () => {
         })
     })
 
-    describe('testing for small sizes', () => {
+    describe('testing for different sizes', () => {
 
         it('resize to 20px x 20px should return files', async () => {
             const reponse = await request.get(`${imagesPath}${query(fileName, 20, 20)}`)
@@ -51,6 +52,19 @@ describe('tests for images enpoint', () => {
         it('resize to 300px x 300px should return files', async () => {
             const reponse = await request.get(`${imagesPath}${query(fileName, 300, 300)}`)
             expect(reponse.status).toBe(200);
+        })
+    })
+
+    describe('testing for error status codes', () => {
+
+        it('should return 400', async () => {
+            const reponse = await request.get(`${imagesPath}${query('', 20, 20)}`)
+            expect(reponse.status).toBe(400);
+        })
+
+        it('should return 404', async () => {
+            const reponse = await request.get(`${imagesPath}${query(nonExistingFilename, 300, 300)}`)
+            expect(reponse.status).toBe(404);
         })
     })
 })

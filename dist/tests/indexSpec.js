@@ -45,6 +45,7 @@ var request = (0, supertest_1.default)(index_1.default);
 describe('tests for images enpoint', function () {
     var imagesPath = '/images';
     var fileName = 'japan';
+    var nonExistingFilename = 'canada';
     var query = function (fileName, width, height) {
         var q = "?file_name=".concat(fileName);
         if (width && height) {
@@ -93,7 +94,7 @@ describe('tests for images enpoint', function () {
             return [2 /*return*/];
         });
     }); });
-    describe('testing for small sizes', function () {
+    describe('testing for different sizes', function () {
         it('resize to 20px x 20px should return files', function () { return __awaiter(void 0, void 0, void 0, function () {
             var reponse;
             return __generator(this, function (_a) {
@@ -114,6 +115,32 @@ describe('tests for images enpoint', function () {
                     case 1:
                         reponse = _a.sent();
                         expect(reponse.status).toBe(200);
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+    });
+    describe('testing for error status codes', function () {
+        it('should return 400', function () { return __awaiter(void 0, void 0, void 0, function () {
+            var reponse;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, request.get("".concat(imagesPath).concat(query('', 20, 20)))];
+                    case 1:
+                        reponse = _a.sent();
+                        expect(reponse.status).toBe(400);
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+        it('should return 404', function () { return __awaiter(void 0, void 0, void 0, function () {
+            var reponse;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, request.get("".concat(imagesPath).concat(query(nonExistingFilename, 300, 300)))];
+                    case 1:
+                        reponse = _a.sent();
+                        expect(reponse.status).toBe(404);
                         return [2 /*return*/];
                 }
             });

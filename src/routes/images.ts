@@ -21,7 +21,7 @@ images.use('/', async (req, res) => {
         // send 400 status if at least 'file_name' param
         // was not provided
         if (!imagesQuery.hasFileName()) {
-            res.status(400).send('Must provide "file_name" value in query')
+            res.status(400).send('400: Must provide "file_name" value in query')
             return;
         }
 
@@ -35,7 +35,7 @@ images.use('/', async (req, res) => {
 
         // send 404 and message if image does not exist
         if (!originalImageExists) {
-            res.send(404).send(`Oops! Image file with name "${fileName}" does not exist yet.`);
+            res.status(404).send(`404: Oops! Image file with name "${fileName}" does not exist yet.`);
             return;
         }
 
@@ -59,11 +59,11 @@ images.use('/', async (req, res) => {
 
         // check if exists
         const resizedImageExists = await doesFileExist(newFilePath);
+        const newFileAbsolutePath = getAbsoluteImagePath(newFilePath);
 
         // return image if exists
         if (resizedImageExists) {
-            let absolutePath = getAbsoluteImagePath(newFilePath);
-            res.status(200).sendFile(absolutePath)
+            res.status(200).sendFile(newFileAbsolutePath)
             return;
         }
 
@@ -79,7 +79,7 @@ images.use('/', async (req, res) => {
             throw(Error())
         }
         
-        res.status(200).sendFile(newFilePath);
+        res.status(200).sendFile(newFileAbsolutePath);
     }
     catch (error) {
         res.status(500).send('Internal error')

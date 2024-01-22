@@ -12,8 +12,9 @@ export default async function resizeImage(
         let image = await Jimp.read(filePath);
         await image
             .resize(width, height)
-            .writeAsync(newFilePath);
-        return true;
+            .writeAsync(newFilePath)
+
+        return true
     }
     catch (error) {
         console.log(error)

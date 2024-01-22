@@ -47,7 +47,7 @@ var path_1 = __importDefault(require("path"));
 var resize_image_1 = __importDefault(require("../lib/resize-image"));
 var images = express_1.default.Router();
 images.use('/', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var getAbsoluteImagePath, imagesQuery, fileName, originalFilePath, originalImageExists, absolutePath, width, height, newFilePath, resizedImageExists, absolutePath, success, error_1;
+    var getAbsoluteImagePath, imagesQuery, fileName, originalFilePath, originalImageExists, absolutePath, width, height, newFilePath, resizedImageExists, newFileAbsolutePath, success, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -61,7 +61,7 @@ images.use('/', function (req, res) { return __awaiter(void 0, void 0, void 0, f
                 // send 400 status if at least 'file_name' param
                 // was not provided
                 if (!imagesQuery.hasFileName()) {
-                    res.status(400).send('Must provide "file_name" value in query');
+                    res.status(400).send('400: Must provide "file_name" value in query');
                     return [2 /*return*/];
                 }
                 fileName = imagesQuery.fileName;
@@ -71,7 +71,7 @@ images.use('/', function (req, res) { return __awaiter(void 0, void 0, void 0, f
                 originalImageExists = _a.sent();
                 // send 404 and message if image does not exist
                 if (!originalImageExists) {
-                    res.send(404).send("Oops! Image file with name \"".concat(fileName, "\" does not exist yet."));
+                    res.status(404).send("404: Oops! Image file with name \"".concat(fileName, "\" does not exist yet."));
                     return [2 /*return*/];
                 }
                 // serve full sized image if width and height params weren't provided
@@ -89,10 +89,10 @@ images.use('/', function (req, res) { return __awaiter(void 0, void 0, void 0, f
                 return [4 /*yield*/, (0, does_file_exist_1.default)(newFilePath)];
             case 3:
                 resizedImageExists = _a.sent();
+                newFileAbsolutePath = getAbsoluteImagePath(newFilePath);
                 // return image if exists
                 if (resizedImageExists) {
-                    absolutePath = getAbsoluteImagePath(newFilePath);
-                    res.status(200).sendFile(absolutePath);
+                    res.status(200).sendFile(newFileAbsolutePath);
                     return [2 /*return*/];
                 }
                 return [4 /*yield*/, (0, resize_image_1.default)(originalFilePath, newFilePath, width, height)];
@@ -101,7 +101,7 @@ images.use('/', function (req, res) { return __awaiter(void 0, void 0, void 0, f
                 if (!success) {
                     throw (Error());
                 }
-                res.status(200).sendFile(newFilePath);
+                res.status(200).sendFile(newFileAbsolutePath);
                 return [3 /*break*/, 6];
             case 5:
                 error_1 = _a.sent();
