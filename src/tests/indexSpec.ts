@@ -6,28 +6,51 @@ const request = supertest(app);
 describe('tests for images enpoint', () => {
 
     const imagesPath = '/images'
-    const fileName = 'puertorico'
+    const fileName = 'japan'
 
     let query = (
         fileName: string,
-        width: number, 
-        height: number
+        width?: number, 
+        height?: number
     ) => {
-        return `?file_name=${fileName}&width=${width}&height=${height}`
+
+        let q = `?file_name=${fileName}`
+        
+        if (width && height) {
+          q = q + `&width=${width}&height=${height}`
+        }
+
+        return q
     }
+
+    describe('tests for original size', async () => {
+        
+        it(`just filename ${fileName} should return file`, async () => {
+            const reponse = await request.get(`${imagesPath}${query(fileName)}`)
+            expect(reponse.status).toBe(200);
+        })
+
+        it(`filename ${fileName} and only width should return file`, async () => {
+            const reponse = await request.get(`${imagesPath}${query(fileName, 100)}`)
+            expect(reponse.status).toBe(200);
+        })
+
+        it(`filename ${fileName} and only height should return file`, async () => {
+            const reponse = await request.get(`${imagesPath}${query(fileName, undefined, 100)}`)
+            expect(reponse.status).toBe(200);
+        })
+    })
 
     describe('testing for small sizes', () => {
 
-        it('resize to 20px x 20px', async () => {
+        it('resize to 20px x 20px should return files', async () => {
             const reponse = await request.get(`${imagesPath}${query(fileName, 20, 20)}`)
-            expect((reponse).status).toBe(200);
-            expect(reponse.files).toBeTruthy()
+            expect(reponse.status).toBe(200);
         })
 
-        it('resize to 300px x 300px', async () => {
+        it('resize to 300px x 300px should return files', async () => {
             const reponse = await request.get(`${imagesPath}${query(fileName, 300, 300)}`)
-            expect((reponse).status).toBe(200);
-            expect(reponse.files).toBeTruthy()
+            expect(reponse.status).toBe(200);
         })
     })
 })

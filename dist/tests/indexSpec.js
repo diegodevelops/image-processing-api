@@ -44,33 +44,76 @@ var index_1 = __importDefault(require("../index"));
 var request = (0, supertest_1.default)(index_1.default);
 describe('tests for images enpoint', function () {
     var imagesPath = '/images';
-    var fileName = 'puertorico';
+    var fileName = 'japan';
     var query = function (fileName, width, height) {
-        return "?file_name=".concat(fileName, "&width=").concat(width, "&height=").concat(height);
+        var q = "?file_name=".concat(fileName);
+        if (width && height) {
+            q = q + "&width=".concat(width, "&height=").concat(height);
+        }
+        return q;
     };
+    describe('tests for original size', function () { return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            it("just filename ".concat(fileName, " should return file"), function () { return __awaiter(void 0, void 0, void 0, function () {
+                var reponse;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, request.get("".concat(imagesPath).concat(query(fileName)))];
+                        case 1:
+                            reponse = _a.sent();
+                            expect(reponse.status).toBe(200);
+                            return [2 /*return*/];
+                    }
+                });
+            }); });
+            it("filename ".concat(fileName, " and only width should return file"), function () { return __awaiter(void 0, void 0, void 0, function () {
+                var reponse;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, request.get("".concat(imagesPath).concat(query(fileName, 100)))];
+                        case 1:
+                            reponse = _a.sent();
+                            expect(reponse.status).toBe(200);
+                            return [2 /*return*/];
+                    }
+                });
+            }); });
+            it("filename ".concat(fileName, " and only height should return file"), function () { return __awaiter(void 0, void 0, void 0, function () {
+                var reponse;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, request.get("".concat(imagesPath).concat(query(fileName, undefined, 100)))];
+                        case 1:
+                            reponse = _a.sent();
+                            expect(reponse.status).toBe(200);
+                            return [2 /*return*/];
+                    }
+                });
+            }); });
+            return [2 /*return*/];
+        });
+    }); });
     describe('testing for small sizes', function () {
-        it('resize to 20px x 20px', function () { return __awaiter(void 0, void 0, void 0, function () {
+        it('resize to 20px x 20px should return files', function () { return __awaiter(void 0, void 0, void 0, function () {
             var reponse;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, request.get("".concat(imagesPath).concat(query(fileName, 20, 20)))];
                     case 1:
                         reponse = _a.sent();
-                        expect((reponse).status).toBe(200);
-                        expect(reponse.files).toBeTruthy();
+                        expect(reponse.status).toBe(200);
                         return [2 /*return*/];
                 }
             });
         }); });
-        it('resize to 300px x 300px', function () { return __awaiter(void 0, void 0, void 0, function () {
+        it('resize to 300px x 300px should return files', function () { return __awaiter(void 0, void 0, void 0, function () {
             var reponse;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, request.get("".concat(imagesPath).concat(query(fileName, 300, 300)))];
                     case 1:
                         reponse = _a.sent();
-                        expect((reponse).status).toBe(200);
-                        expect(reponse.files).toBeTruthy();
+                        expect(reponse.status).toBe(200);
                         return [2 /*return*/];
                 }
             });

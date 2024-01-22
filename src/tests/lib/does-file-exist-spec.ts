@@ -1,6 +1,6 @@
 import doesFileExist from "../../lib/does-file-exist"
 
-describe('tests for .doesFileExist func', () => {
+describe('tests for doesFileExist func', () => {
 
     it('should return true', async () => {
         const fileName = 'japan.jpg';

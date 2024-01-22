@@ -40,7 +40,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var does_file_exist_1 = __importDefault(require("../../lib/does-file-exist"));
-describe('tests for .doesFileExist func', function () {
+describe('tests for doesFileExist func', function () {
     it('should return true', function () { return __awaiter(void 0, void 0, void 0, function () {
         var fileName, filePath, answer;
         return __generator(this, function (_a) {

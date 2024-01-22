@@ -1,6 +1,6 @@
 import removeFileExtension from "../../lib/remove-file-extension";
 
-describe('tests for .removeFileExtension', () => {
+describe('tests for removeFileExtension', () => {
 
     const string = 'puertorico.png';
     const correctString = 'puertorico';
