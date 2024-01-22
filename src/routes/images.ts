@@ -3,6 +3,7 @@ import getImagePath from '../lib/get-image-path';
 import doesFileExist from '../lib/does-file-exist';
 import ImagesQuery from '../lib/ImagesQuery';
 import path from 'path';
+import resizeImage from '../lib/resize-image';
 
 const images = express.Router()
 
@@ -27,16 +28,10 @@ images.use('/', async (req, res) => {
         const fileName = imagesQuery.fileName as string
 
         // get file path of full image sized image
-        const originalFilePath = getImagePath(fileName)
-
-        console.log(`originalFilePath => ${originalFilePath}`)
-
+        const originalFilePath = getImagePath(fileName);
 
         // check if image with filename exist
         const originalImageExists = await doesFileExist(originalFilePath);
-
-        console.log(`originalImageExists => ${originalImageExists}`)
-
 
         // send 404 and message if image does not exist
         if (!originalImageExists) {
@@ -51,20 +46,19 @@ images.use('/', async (req, res) => {
             return;
         }
 
+        const width = imagesQuery.width as number;
+        const height = imagesQuery.height as number;
+
         const newFilePath = getImagePath(
             fileName, 
             { 
-                width: imagesQuery.width as number, 
-                height: imagesQuery.height as number
+                width: width, 
+                height: height
             }
         )
 
-        console.log(`newFilePath => ${newFilePath}`)
-
         // check if exists
         const resizedImageExists = await doesFileExist(newFilePath);
-
-        console.log(`resizedImageExists => ${resizedImageExists}`)
 
         // return image if exists
         if (resizedImageExists) {
@@ -74,10 +68,18 @@ images.use('/', async (req, res) => {
         }
 
         // create new resized image
+        const success = await resizeImage(
+            originalFilePath,
+            newFilePath,
+            width,
+            height
+        )
+
+        if (!success) {
+            throw(Error())
+        }
         
-
-
-        res.status(500).send('images route');
+        res.status(200).sendFile(newFilePath);
     }
     catch (error) {
         res.status(500).send('Internal error')

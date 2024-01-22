@@ -44,9 +44,10 @@ var get_image_path_1 = __importDefault(require("../lib/get-image-path"));
 var does_file_exist_1 = __importDefault(require("../lib/does-file-exist"));
 var ImagesQuery_1 = __importDefault(require("../lib/ImagesQuery"));
 var path_1 = __importDefault(require("path"));
+var resize_image_1 = __importDefault(require("../lib/resize-image"));
 var images = express_1.default.Router();
 images.use('/', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var getAbsoluteImagePath, imagesQuery, fileName, originalFilePath, originalImageExists, absolutePath, newFilePath, resizedImageExists, absolutePath, error_1;
+    var getAbsoluteImagePath, imagesQuery, fileName, originalFilePath, originalImageExists, absolutePath, width, height, newFilePath, resizedImageExists, absolutePath, success, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -55,7 +56,7 @@ images.use('/', function (req, res) { return __awaiter(void 0, void 0, void 0, f
                 };
                 _a.label = 1;
             case 1:
-                _a.trys.push([1, 4, , 5]);
+                _a.trys.push([1, 5, , 6]);
                 imagesQuery = new ImagesQuery_1.default(req.query);
                 // send 400 status if at least 'file_name' param
                 // was not provided
@@ -65,11 +66,9 @@ images.use('/', function (req, res) { return __awaiter(void 0, void 0, void 0, f
                 }
                 fileName = imagesQuery.fileName;
                 originalFilePath = (0, get_image_path_1.default)(fileName);
-                console.log("originalFilePath => ".concat(originalFilePath));
                 return [4 /*yield*/, (0, does_file_exist_1.default)(originalFilePath)];
             case 2:
                 originalImageExists = _a.sent();
-                console.log("originalImageExists => ".concat(originalImageExists));
                 // send 404 and message if image does not exist
                 if (!originalImageExists) {
                     res.send(404).send("Oops! Image file with name \"".concat(fileName, "\" does not exist yet."));
@@ -81,29 +80,34 @@ images.use('/', function (req, res) { return __awaiter(void 0, void 0, void 0, f
                     res.status(200).sendFile(absolutePath);
                     return [2 /*return*/];
                 }
+                width = imagesQuery.width;
+                height = imagesQuery.height;
                 newFilePath = (0, get_image_path_1.default)(fileName, {
-                    width: imagesQuery.width,
-                    height: imagesQuery.height
+                    width: width,
+                    height: height
                 });
-                console.log("newFilePath => ".concat(newFilePath));
                 return [4 /*yield*/, (0, does_file_exist_1.default)(newFilePath)];
             case 3:
                 resizedImageExists = _a.sent();
-                console.log("resizedImageExists => ".concat(resizedImageExists));
                 // return image if exists
                 if (resizedImageExists) {
                     absolutePath = getAbsoluteImagePath(newFilePath);
                     res.status(200).sendFile(absolutePath);
                     return [2 /*return*/];
                 }
-                // create new resized image
-                res.status(500).send('images route');
-                return [3 /*break*/, 5];
+                return [4 /*yield*/, (0, resize_image_1.default)(originalFilePath, newFilePath, width, height)];
             case 4:
+                success = _a.sent();
+                if (!success) {
+                    throw (Error());
+                }
+                res.status(200).sendFile(newFilePath);
+                return [3 /*break*/, 6];
+            case 5:
                 error_1 = _a.sent();
                 res.status(500).send('Internal error');
-                return [3 /*break*/, 5];
-            case 5: return [2 /*return*/];
+                return [3 /*break*/, 6];
+            case 6: return [2 /*return*/];
         }
     });
 }); });
