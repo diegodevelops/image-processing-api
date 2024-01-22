@@ -31,4 +31,36 @@ describe('tests for ImageQuery class', function () {
             expect(answer).toBeTrue();
         });
     });
+    describe('tests for .hasWidthAndHeight', function () {
+        it('no parameters should return false', function () {
+            var query = {};
+            var iq = new ImagesQuery_1.default(query);
+            var answer = iq.hasWidthAndHeight();
+            expect(answer).toBeFalse();
+        });
+        it('empty strings should return false', function () {
+            var query = { width: '', height: '' };
+            var iq = new ImagesQuery_1.default(query);
+            var answer = iq.hasWidthAndHeight();
+            expect(answer).toBeFalse();
+        });
+        it('width of 200 and no height should return false', function () {
+            var query = { width: '200' };
+            var iq = new ImagesQuery_1.default(query);
+            var answer = iq.hasWidthAndHeight();
+            expect(answer).toBeFalse();
+        });
+        it('height of 200 and no width should return false', function () {
+            var query = { height: '200' };
+            var iq = new ImagesQuery_1.default(query);
+            var answer = iq.hasWidthAndHeight();
+            expect(answer).toBeFalse();
+        });
+        it('height and width of 200 should return true', function () {
+            var query = { width: '200', height: '200' };
+            var iq = new ImagesQuery_1.default(query);
+            var answer = iq.hasWidthAndHeight();
+            expect(answer).toBeTrue();
+        });
+    });
 });

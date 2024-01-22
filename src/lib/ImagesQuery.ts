@@ -6,27 +6,28 @@ enum QueryParameters {
 }
 
 export default class ImagesQuery {
-
+    
     fileName?: string
-    width?: string
-    height?: string
+    width?: number
+    height?: number
 
     constructor(reqQuery: {[key: string]: any}) {
-        this.fileName = reqQuery[QueryParameters.fileName]
-        this.width = reqQuery[QueryParameters.width]
-        this.height = reqQuery[QueryParameters.height]
+        this.fileName = reqQuery[QueryParameters.fileName] as string
+        this.width = this._getValidNumberIfAny(reqQuery[QueryParameters.width])
+        this.height = this._getValidNumberIfAny(reqQuery[QueryParameters.height])
     }
 
-    private _hasProperValue(prop?: string): boolean {
-        return (prop || '').trim() != '' 
+    private _getValidNumberIfAny(value: string | undefined): number | undefined {
+        let possibleNumber = parseInt(value ?? '')
+        return (isNaN(possibleNumber)) ? undefined : possibleNumber
     }
     
     public hasFileName(): boolean {
-        return this._hasProperValue(this.fileName)
+        return (this.fileName || '').trim() != '' 
     }
 
     public hasWidthAndHeight(): boolean {
-        return this._hasProperValue(this.width)
-            && this._hasProperValue(this.height)
+        return this.width != undefined
+            && this.height != undefined
     }
 }

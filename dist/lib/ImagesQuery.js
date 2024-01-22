@@ -9,18 +9,19 @@ var QueryParameters;
 var ImagesQuery = /** @class */ (function () {
     function ImagesQuery(reqQuery) {
         this.fileName = reqQuery[QueryParameters.fileName];
-        this.width = reqQuery[QueryParameters.width];
-        this.height = reqQuery[QueryParameters.height];
+        this.width = this._getValidNumberIfAny(reqQuery[QueryParameters.width]);
+        this.height = this._getValidNumberIfAny(reqQuery[QueryParameters.height]);
     }
-    ImagesQuery.prototype._hasProperValue = function (prop) {
-        return (prop || '').trim() != '';
+    ImagesQuery.prototype._getValidNumberIfAny = function (value) {
+        var possibleNumber = parseInt(value !== null && value !== void 0 ? value : '');
+        return (isNaN(possibleNumber)) ? undefined : possibleNumber;
     };
     ImagesQuery.prototype.hasFileName = function () {
-        return this._hasProperValue(this.fileName);
+        return (this.fileName || '').trim() != '';
     };
     ImagesQuery.prototype.hasWidthAndHeight = function () {
-        return this._hasProperValue(this.width)
-            && this._hasProperValue(this.height);
+        return this.width != undefined
+            && this.height != undefined;
     };
     return ImagesQuery;
 }());
