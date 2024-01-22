@@ -9,10 +9,10 @@ export default class ImagesQuery {
   width?: number;
   height?: number;
 
-  constructor(reqQuery: { [key: string]: any }) {
+  constructor(reqQuery: { [key: string]: unknown }) {
     this.fileName = reqQuery[QueryParameters.fileName] as string;
-    this.width = this._getValidNumberIfAny(reqQuery[QueryParameters.width]);
-    this.height = this._getValidNumberIfAny(reqQuery[QueryParameters.height]);
+    this.width = this._getValidNumberIfAny(reqQuery[QueryParameters.width] as string);
+    this.height = this._getValidNumberIfAny(reqQuery[QueryParameters.height]  as string);
   }
 
   private _getValidNumberIfAny(value: string | undefined): number | undefined {
