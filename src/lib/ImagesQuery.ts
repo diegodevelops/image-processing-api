@@ -1,7 +1,7 @@
-enum QueryParameters {
-  fileName = 'file_name',
-  width = 'width',
-  height = 'height',
+export enum QueryParameters {
+  fileName = 'file_name', // eslint-disable-line no-unused-vars
+  width = 'width', // eslint-disable-line no-unused-vars
+  height = 'height', // eslint-disable-line no-unused-vars
 }
 
 export default class ImagesQuery {
@@ -16,7 +16,7 @@ export default class ImagesQuery {
   }
 
   private _getValidNumberIfAny(value: string | undefined): number | undefined {
-    let possibleNumber = parseInt(value ?? '');
+    const possibleNumber = parseInt(value ?? '');
     return isNaN(possibleNumber) ? undefined : possibleNumber;
   }
 

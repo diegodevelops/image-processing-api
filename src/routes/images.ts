@@ -8,7 +8,7 @@ import resizeImage from '../lib/resize-image';
 const images = express.Router();
 
 images.use('/', async (req, res) => {
-  let getAbsoluteImagePath = (imagePath: string) => {
+  const getAbsoluteImagePath = (imagePath: string) => {
     return path.join(__dirname, '../..', imagePath);
   };
 
@@ -43,7 +43,7 @@ images.use('/', async (req, res) => {
 
     // serve full sized image if width and height params weren't provided
     if (!imagesQuery.hasWidthAndHeight()) {
-      let absolutePath = getAbsoluteImagePath(originalFilePath);
+      const absolutePath = getAbsoluteImagePath(originalFilePath);
       res.status(200).sendFile(absolutePath);
       return;
     }

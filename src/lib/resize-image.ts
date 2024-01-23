@@ -1,5 +1,4 @@
 import Jimp from 'jimp';
-import { promises as fs } from 'fs';
 
 export default async function resizeImage(
   filePath: string,
@@ -8,7 +7,7 @@ export default async function resizeImage(
   height: number,
 ): Promise<boolean> {
   try {
-    let image = await Jimp.read(filePath);
+    const image = await Jimp.read(filePath);
     await image.resize(width, height).writeAsync(newFilePath);
 
     return true;

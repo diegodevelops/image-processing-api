@@ -1,12 +1,10 @@
 import { promises as fs } from 'fs';
 
-let doesFileExist = async (filePath: string) => {
+export default async function doesFileExist(filePath: string) {
   try {
-    const _ = await fs.open(filePath);
+    await fs.open(filePath);
     return true;
   } catch (error) {
     return false;
   }
-};
-
-export default doesFileExist;
+}
