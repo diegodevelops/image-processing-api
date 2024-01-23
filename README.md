@@ -5,6 +5,7 @@ A simple API developed with Typescript and few popular node modules. Some of the
 - jasmine for unit tests
 - supertest for unit tests involving networking
 - prettier for formatting
+- eslint for code styling
 - jimp for image resizing
 - nodemon for monitoring during development
 
