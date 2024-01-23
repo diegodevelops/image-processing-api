@@ -8,3 +8,13 @@ A simple API developed with Typescript and few popular node modules. Some of the
 - jimp for image resizing
 - nodemon for monitoring during development
 
+The endpoint to get images is: `/images`
+
+Required parameter: `file_name`
+
+Optional parameters: `width` and `height`
+
+Example query url in localhost: `http://localhost:3000/images?file_name=japan&width=200&height=200`
+
+
+
