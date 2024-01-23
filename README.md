@@ -14,6 +14,8 @@ Required parameter: `file_name`
 
 Optional parameters: `width` and `height`
 
+Example query: [/images?file_name=japan&width=200&height=200](/images?file_name=japan&width=200&height=200)
+
 Example query in localhost: [http://localhost:3000/images?file_name=japan&width=200&height=200](http://localhost:3000/images?file_name=japan&width=200&height=200)
 
 
