@@ -8,7 +8,7 @@ describe('tests for images enpoint', () => {
   const fileName = 'japan';
   const nonExistingFilename = 'canada';
 
-  let query = (fileName: string, width?: number, height?: number) => {
+  const query = (fileName: string, width?: number | string, height?: number | string) => {
     let q = `?file_name=${fileName}`;
 
     if (width && height) {
@@ -54,14 +54,28 @@ describe('tests for images enpoint', () => {
   });
 
   describe('testing for error status codes', () => {
-    it('should return 400', async () => {
+    it('no filename should return 400', async () => {
       const reponse = await request.get(`${imagesPath}${query('', 20, 20)}`);
       expect(reponse.status).toBe(400);
     });
 
-    it('should return 404', async () => {
+    it('non existing file name should return 404', async () => {
       const reponse = await request.get(
         `${imagesPath}${query(nonExistingFilename, 300, 300)}`,
+      );
+      expect(reponse.status).toBe(404);
+    });
+
+    it('invalid width should return 404', async () => {
+      const reponse = await request.get(
+        `${imagesPath}${query(nonExistingFilename, '300xx', 300)}`,
+      );
+      expect(reponse.status).toBe(404);
+    });
+
+    it('invalid height should return 404', async () => {
+      const reponse = await request.get(
+        `${imagesPath}${query(nonExistingFilename, 300, '300xx')}`,
       );
       expect(reponse.status).toBe(404);
     });

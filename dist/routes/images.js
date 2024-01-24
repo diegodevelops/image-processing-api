@@ -76,6 +76,19 @@ images.use('/', function (req, res) { return __awaiter(void 0, void 0, void 0, f
                         .send("404: Oops! Image file with name \"".concat(fileName, "\" does not exist yet."));
                     return [2 /*return*/];
                 }
+                // send 404 and message if height or width are invalid
+                if (imagesQuery.didProvideInputWidthAndHeight()) {
+                    // width is invalid 
+                    if (!imagesQuery.didProvideValidInputWidth()) {
+                        res.status(404).send("Invalid width provided \"".concat(imagesQuery.inputWidth, "\""));
+                        return [2 /*return*/];
+                    }
+                    // height is invalid 
+                    if (!imagesQuery.didProvideValidInputHeight()) {
+                        res.status(404).send("Invalid height provided \"".concat(imagesQuery.inputHeight, "\""));
+                        return [2 /*return*/];
+                    }
+                }
                 // serve full sized image if width and height params weren't provided
                 if (!imagesQuery.hasWidthAndHeight()) {
                     absolutePath = getAbsoluteImagePath(originalFilePath);

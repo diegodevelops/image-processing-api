@@ -121,7 +121,7 @@ describe('tests for images enpoint', function () {
         }); });
     });
     describe('testing for error status codes', function () {
-        it('should return 400', function () { return __awaiter(void 0, void 0, void 0, function () {
+        it('no filename should return 400', function () { return __awaiter(void 0, void 0, void 0, function () {
             var reponse;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -133,11 +133,35 @@ describe('tests for images enpoint', function () {
                 }
             });
         }); });
-        it('should return 404', function () { return __awaiter(void 0, void 0, void 0, function () {
+        it('non existing file name should return 404', function () { return __awaiter(void 0, void 0, void 0, function () {
             var reponse;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, request.get("".concat(imagesPath).concat(query(nonExistingFilename, 300, 300)))];
+                    case 1:
+                        reponse = _a.sent();
+                        expect(reponse.status).toBe(404);
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+        it('invalid width should return 404', function () { return __awaiter(void 0, void 0, void 0, function () {
+            var reponse;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, request.get("".concat(imagesPath).concat(query(nonExistingFilename, '300xx', 300)))];
+                    case 1:
+                        reponse = _a.sent();
+                        expect(reponse.status).toBe(404);
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+        it('invalid height should return 404', function () { return __awaiter(void 0, void 0, void 0, function () {
+            var reponse;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, request.get("".concat(imagesPath).concat(query(nonExistingFilename, 300, '300xx')))];
                     case 1:
                         reponse = _a.sent();
                         expect(reponse.status).toBe(404);

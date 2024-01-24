@@ -63,4 +63,74 @@ describe('tests for ImageQuery class', function () {
             expect(answer).toBeTrue();
         });
     });
+    describe('tests for .didProvideValidInputWidth', function () {
+        it('width of 200 should return true', function () {
+            var query = { width: '200' };
+            var iq = new ImagesQuery_1.default(query);
+            var answer = iq.didProvideValidInputWidth();
+            expect(answer).toBeTrue();
+        });
+        it('width of "200uu" should return false', function () {
+            var query = { width: '200uu' };
+            var iq = new ImagesQuery_1.default(query);
+            var answer = iq.didProvideValidInputWidth();
+            expect(answer).toBeFalse();
+        });
+    });
+    describe('tests for .didProvideValidInputHeight', function () {
+        it('height of 200 should return true', function () {
+            var query = { height: '200' };
+            var iq = new ImagesQuery_1.default(query);
+            var answer = iq.didProvideValidInputHeight();
+            expect(answer).toBeTrue();
+        });
+        it('height of "200uu" should return false', function () {
+            var query = { height: '200uu' };
+            var iq = new ImagesQuery_1.default(query);
+            var answer = iq.didProvideValidInputHeight();
+            expect(answer).toBeFalse();
+        });
+    });
+    describe('tests for .didProvideInputWidthAndHeight', function () {
+        it('height and width of "xxx" should return true', function () {
+            var query = { height: 'xxx', width: 'xxx' };
+            var iq = new ImagesQuery_1.default(query);
+            var answer = iq.didProvideInputWidthAndHeight();
+            expect(answer).toBeTrue();
+        });
+        it('height of "xxx" and empty width should return false', function () {
+            var query = { height: 'xxx' };
+            var iq = new ImagesQuery_1.default(query);
+            var answer = iq.didProvideInputWidthAndHeight();
+            expect(answer).toBeFalse();
+        });
+    });
+    describe('tests for .didProvideInputWidth', function () {
+        it('width of "xxx" should return true', function () {
+            var query = { width: 'xxx' };
+            var iq = new ImagesQuery_1.default(query);
+            var answer = iq.didProvideInputWidth();
+            expect(answer).toBeTrue();
+        });
+        it('empty width should return false', function () {
+            var query = {};
+            var iq = new ImagesQuery_1.default(query);
+            var answer = iq.didProvideInputWidth();
+            expect(answer).toBeFalse();
+        });
+    });
+    describe('tests for .didProvideInputHeight', function () {
+        it('height of "xxx" should return true', function () {
+            var query = { height: 'xxx' };
+            var iq = new ImagesQuery_1.default(query);
+            var answer = iq.didProvideInputHeight();
+            expect(answer).toBeTrue();
+        });
+        it('empty height should return false', function () {
+            var query = {};
+            var iq = new ImagesQuery_1.default(query);
+            var answer = iq.didProvideInputHeight();
+            expect(answer).toBeFalse();
+        });
+    });
 });

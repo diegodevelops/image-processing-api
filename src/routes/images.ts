@@ -41,6 +41,20 @@ images.use('/', async (req, res) => {
       return;
     }
 
+    // send 404 and message if height or width are invalid
+    if (imagesQuery.didProvideInputWidthAndHeight()) {
+      // width is invalid 
+      if (!imagesQuery.didProvideValidInputWidth()) {
+        res.status(404).send(`Invalid width provided "${imagesQuery.inputWidth}"`)
+        return;
+      }
+      // height is invalid 
+      if (!imagesQuery.didProvideValidInputHeight()) {
+        res.status(404).send(`Invalid height provided "${imagesQuery.inputHeight}"`)
+        return;
+      }
+    }
+
     // serve full sized image if width and height params weren't provided
     if (!imagesQuery.hasWidthAndHeight()) {
       const absolutePath = getAbsoluteImagePath(originalFilePath);
